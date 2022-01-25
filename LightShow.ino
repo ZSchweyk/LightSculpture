@@ -30,27 +30,11 @@ void runLightShow()
 //  Serial.print("Light Show finished.  Run time in milliseconds: ");
 //  Serial.println(millis() - startTime);
 
-
-
-
-
-
-
-
   
 
-  int pinNumber;
+  FlashAllWithFade(4);
+  FlashBottomAndTop(250, 8);
   
-  for(pinNumber = 2; pinNumber <= 15; pinNumber++)
-  { 
-    pinMode(pinNumber, OUTPUT);
-  }
-
-  
-
-  Serial.println("Starting TestFunc");
-  TestFunc();
-  Serial.println("Finished TestFunc");
   
 //  FlashSequence1(200, 50, 25, 1, 3);
 //  FlashSequence1(50, 200, 25, 1, 1);  
@@ -82,21 +66,48 @@ void runLightShow()
 // All your function definitions for LightShow should be entered here
 //
 
-void TestFunc()
+int fDelay(int milliseconds)
 {
-  Serial.println("In TestFunc");
-  for(int i = 0; i < 100; i++)
+  if(fade.delayAndCheckForExit(milliseconds)) return;
+}
+
+void FlashAllWithFade(int repeat)
+{
+  for(int i = 0; i < repeat; i++)
   {
-    for(int j = 2; j < 12; j++)
-    {
-      fade.up(5, j);
-      // if (fade.delayAndCheckForExit(10000) == true) return;
-      fade.down(5, j);
-      // if (fade.delayAndCheckForExit(100) == true) return;
-    }
-    
+    fade.up(5);
+    fade.down(5);
   }
 }
+
+void FlashBottomAndTop(int waitTime, double fadeTime)
+{
+  byte bottom[] = {2, 3, 4, 5, 6};
+  byte top[] = {7, 8, 9, 10, 11};
+  fDelay(waitTime);
+  for(int i = 0; i < 2; i++)
+  {
+    fade.up(fadeTime, bottom, sizeof(bottom));
+    fDelay(waitTime);
+    fade.up(fadeTime, top, sizeof(top));
+    fDelay(waitTime);
+    fade.down(fadeTime, bottom, sizeof(bottom));
+    fDelay(waitTime);
+    fade.down(fadeTime, top, sizeof(top));
+    fDelay(waitTime);
+
+    fade.up(fadeTime, top, sizeof(top));
+    fDelay(waitTime);
+    fade.up(fadeTime, bottom, sizeof(bottom));
+    fDelay(waitTime);
+    fade.down(fadeTime, top, sizeof(top));
+    fDelay(waitTime);
+    fade.down(fadeTime, bottom, sizeof(bottom));
+    fDelay(waitTime);
+  }
+}
+      
+
 
 void FlashSequence1(int InitialTimePeriodOn, int FinalTimePeriodOn, int IncreasingOnIncrement, int Repeat, int EndRepeat)
 // The following function flashes all the LEDs from the bottom to the top.
