@@ -32,10 +32,10 @@ void runLightShow()
 
   
 
-  // FlashAllWithFade(4);
-  // FlashBottomAndTop(250, 8);
-  // FadeTwoAtATime(1);
-  // BothCircles(15);
+  FlashAllWithFade(4);
+  FlashBottomAndTop(250, 8);
+  FadeTwoAtATime(1);
+  BothCircles(15);
   OneCircle(10, "outer", "ccw");
   OneCircle(10, "inner", "ccw");
   
@@ -263,7 +263,6 @@ void OneCircle(int numCircles, String outerOrInner, String dir)
     }
     
   }
-  fade.down(10);
 }
       
 
