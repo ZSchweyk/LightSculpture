@@ -85,22 +85,17 @@ void runLightShow()
 void TestFunc()
 {
   Serial.println("In TestFunc");
-
-  int leds[5][2] = {{6, 11}, {5, 10}, {4, 9}, {3, 8}, {2, 7}};
-
-  for(int i = 0; i < sizeof(leds); i++)
+  for(int i = 0; i < 100; i++)
   {
-    fade.up(5, leds[i][0]);
-    fade.up(5, leds[i][1]);
+    for(int j = 2; j < 12; j++)
+    {
+      fade.up(5, j);
+      // if (fade.delayAndCheckForExit(10000) == true) return;
+      fade.down(5, j);
+      // if (fade.delayAndCheckForExit(100) == true) return;
+    }
+    
   }
-
-  for(int i = 0; i < sizeof(leds); i++)
-  {
-    fade.down(5, leds[i][0]);
-    fade.down(5, leds[i][1]);
-  }
-
-
 }
 
 void FlashSequence1(int InitialTimePeriodOn, int FinalTimePeriodOn, int IncreasingOnIncrement, int Repeat, int EndRepeat)
