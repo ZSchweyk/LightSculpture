@@ -32,8 +32,13 @@ void runLightShow()
 
   
 
-  FlashAllWithFade(4);
-  FlashBottomAndTop(250, 8);
+  // FlashAllWithFade(4);
+  // FlashBottomAndTop(250, 8);
+  // FadeTwoAtATime(1);
+  // BothCircles(15);
+  OneCircle(10, "outer", "ccw");
+  OneCircle(10, "inner", "ccw");
+  
   
   
 //  FlashSequence1(200, 50, 25, 1, 3);
@@ -105,6 +110,160 @@ void FlashBottomAndTop(int waitTime, double fadeTime)
     fade.down(fadeTime, bottom, sizeof(bottom));
     fDelay(waitTime);
   }
+}
+
+void FadeTwoAtATime(int repeat)
+{
+  byte setsOfTwo[][2] = {{2, 11}, {3, 10}, {4, 9}, {5, 8}, {6, 7}};
+  int delayTime = 500;
+  int originalDelayTime = delayTime;
+
+  for(int count = 0; count < repeat; count ++)
+  {
+    for(int i = 0; i < 2; i++)
+    {
+      int boundary;
+      if(i == 0)
+      {
+        boundary = 0;
+      }
+      else
+      {
+        boundary = originalDelayTime;
+      }
+      while(delayTime != boundary)
+      {
+        for(int row = 0; row < sizeof(setsOfTwo) / 2; row++)
+        {
+          if(row != sizeof(setsOfTwo) / 2 - 1)
+          {
+            digitalWrite(setsOfTwo[row][0], HIGH);
+            digitalWrite(setsOfTwo[row][1], HIGH);
+          }
+          else
+          {
+            digitalWrite(setsOfTwo[row - 1][0], LOW);
+            digitalWrite(setsOfTwo[row - 1][1], LOW);
+            break;
+          }
+          
+          if(row != 0)
+          {
+            digitalWrite(setsOfTwo[row - 1][0], LOW);
+            digitalWrite(setsOfTwo[row - 1][1], LOW);
+          }
+          fDelay(delayTime);
+        }
+      
+        for(int row = sizeof(setsOfTwo) / 2 - 1; row > -1; row--)
+        {
+          if(row != 0)
+          {
+            digitalWrite(setsOfTwo[row][0], HIGH);
+            digitalWrite(setsOfTwo[row][1], HIGH);
+          }
+          else
+          {
+            digitalWrite(setsOfTwo[row + 1][0], LOW);
+            digitalWrite(setsOfTwo[row + 1][1], LOW);
+            break;
+          }
+          
+          if(row != sizeof(setsOfTwo) / 2 - 1)
+          {
+            digitalWrite(setsOfTwo[row + 1][0], LOW);
+            digitalWrite(setsOfTwo[row + 1][1], LOW);
+          }
+          fDelay(delayTime);
+        }
+  
+        if(boundary == 0)
+        {
+          delayTime -= 50;
+        }
+        else
+        {
+          delayTime += 50;
+        }
+        Serial.println(delayTime);
+      }
+    }
+  }
+}
+
+void BothCircles(int numCircles)
+{
+  byte outer[] = {2, 7, 11, 6};
+  byte inner[] = {10, 8, 3, 5};
+  for(int i = 0; i < numCircles; i++)
+  {
+    byte lastOn[2];
+    for(int ledNum = 0; ledNum < sizeof(outer); ledNum++)
+    {
+      byte simultaneousLeds[2] = {outer[ledNum], inner[ledNum]};
+      fade.up(6, simultaneousLeds, 2);
+
+      fade.down(6, lastOn, 2);
+      
+      lastOn[0] = outer[ledNum];
+      lastOn[1] = inner[ledNum];
+    }
+  }
+}
+
+void OneCircle(int numCircles, String outerOrInner, String dir)
+{
+  byte outer[] = {2, 7, 11, 6};
+  byte inner[] = {10, 8, 3, 5};
+
+  byte circle[4];
+
+  if(outerOrInner == "outer")
+  {
+    for(int i = 0; i < 4; i++)
+    {
+      circle[i] = outer[i];
+    }
+  }
+  else if(outerOrInner == "inner")
+  {
+    for(int i = 0; i < 4; i++)
+    {
+      circle[i] = inner[i];
+    }
+  }
+  
+  byte lastOn[1];
+
+  int ledNumStart;
+  int ledNumEnd;
+  int increment;
+  if(dir == "ccw")
+  {
+    ledNumStart = 0;
+    ledNumEnd = sizeof(circle);
+    increment = 1;
+  }
+  else
+  {
+    ledNumStart = sizeof(circle) - 1;
+    ledNumEnd = -1;
+    increment = -1;
+  }
+
+  
+  for(int count = 0; count < numCircles; count++)
+  {
+    for(int ledNum = ledNumStart; ledNum != ledNumEnd; ledNum = ledNum + increment)
+    {
+      digitalWrite(circle[ledNum], HIGH);
+      fade.down(10, lastOn, 1);
+      fDelay(100);
+      lastOn[0] = circle[ledNum];
+    }
+    
+  }
+  fade.down(10);
 }
       
 
