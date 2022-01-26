@@ -32,34 +32,36 @@ void runLightShow()
 
   
 
-  FlashAllWithFade(4);
-  FlashBottomAndTop(250, 8);
-  FadeTwoAtATime(1);
-  BothCircles(15);
-  OneCircle(10, "outer", "ccw");
-  OneCircle(10, "inner", "ccw");
+ FlashAllWithFade(4);
+ FlashBottomAndTop(250, 8);
+ FadeTwoAtATime(1);
+ BothCircles(15);
+
+
+
+// OneCircle(10, "outer", "cw");
   
   
   
-//  FlashSequence1(200, 50, 25, 1, 3);
-//  FlashSequence1(50, 200, 25, 1, 1);  
-//  FlashSequence2(250, 50, 25, 1, 3); 
-//  FlashSequence2(50, 250, 25, 1, 1);  
-//  FlashSequence3(250, 50, 25, 3);
-//  FlashSequence3(50, 250, 25, 1);  
-//  FlashSequence4(250, 25, 25, 1, 4);
-//  FlashSequence4(25, 250, 25, 1, 1);  
-//  FlashSequence5(200, 50, 25, 2, 3);
-//  FlashSequence5(50, 200, 25, 2, 1);  
-//  FlashSequence6(300, 50, 50, 2); 
-//  FlashSequence6(50, 300, 50, 1);  
-//  FlashSequence7(150, 50, 50, 1, 4);
-//  FlashSequence7(50, 150, 50, 1, 2);  
-//  FlashSequence8(150, 50, 25, 1, 4);
-//  FlashSequence8(50, 150, 25, 1, 4);  
-//  FlashSequence9(150, 50, 25, 3, 4);
-//  FlashSequence9(50, 150, 25, 2, 2);  
-//  FlashSequence10(150, 50, 25, 3, 3); 
+ FlashSequence1(200, 50, 25, 1, 3);
+ FlashSequence1(50, 200, 25, 1, 1);  
+ FlashSequence2(250, 50, 25, 1, 3); 
+ FlashSequence2(50, 250, 25, 1, 1);  
+ FlashSequence3(250, 50, 25, 3);
+ FlashSequence3(50, 250, 25, 1);  
+ FlashSequence4(250, 25, 25, 1, 4);
+ FlashSequence4(25, 250, 25, 1, 1);  
+ FlashSequence5(200, 50, 25, 2, 3);
+ FlashSequence5(50, 200, 25, 2, 1);  
+ FlashSequence6(300, 50, 50, 2); 
+ FlashSequence6(50, 300, 50, 1);  
+ FlashSequence7(150, 50, 50, 1, 4);
+ FlashSequence7(50, 150, 50, 1, 2);  
+ FlashSequence8(150, 50, 25, 1, 4);
+ FlashSequence8(50, 150, 25, 1, 4);  
+ FlashSequence9(150, 50, 25, 3, 4);
+ FlashSequence9(50, 150, 25, 2, 2);  
+ FlashSequence10(150, 50, 25, 3, 3); 
 
   
 }
@@ -241,12 +243,12 @@ void OneCircle(int numCircles, String outerOrInner, String dir)
   if(dir == "ccw")
   {
     ledNumStart = 0;
-    ledNumEnd = sizeof(circle);
+    ledNumEnd = 4;
     increment = 1;
   }
   else
   {
-    ledNumStart = sizeof(circle) - 1;
+    ledNumStart = 3;
     ledNumEnd = -1;
     increment = -1;
   }
@@ -261,7 +263,6 @@ void OneCircle(int numCircles, String outerOrInner, String dir)
       fDelay(100);
       lastOn[0] = circle[ledNum];
     }
-    
   }
 }
       

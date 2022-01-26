@@ -60,9 +60,9 @@ void setup()
   for(pinNum = firstLedNumber; pinNum <= lastLedNumber; pinNum++)
   {
     pinMode(pinNum, OUTPUT); 
-    Serial.print("pinNum  "); // prints "pinNum" to the screen
-    Serial.print(pinNum);     // prints the VALUE of pinNum to the screen
-    Serial.println("");       // prints a new line 
+//    Serial.print("pinNum  "); // prints "pinNum" to the screen
+//    Serial.print(pinNum);     // prints the VALUE of pinNum to the screen
+//    Serial.println("");       // prints a new line 
   } 
 
   Serial.println("Setup Complete"); // prints "Setup Complete" to the screen
@@ -109,3 +109,4 @@ void loop()
     fade.nightLightMode();
   }
 }
+

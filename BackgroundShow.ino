@@ -7,28 +7,71 @@
 //
 void runBackgroundShow()
 {
-  unsigned long startTime; // time we begin the light show, in milliseconds
-  int intermissionDelay = 400; // brief pause between displays
-  int postShowDelay = 2000; // longer delay at the end of the show
+  // unsigned long startTime; // time we begin the light show, in milliseconds
+  // int intermissionDelay = 400; // brief pause between displays
+  // int postShowDelay = 2000; // longer delay at the end of the show
   
-  Serial.println("Beginning Background Show.");
+  // Serial.println("Beginning Background Show.");
     
-  //first display
-  fadeBlinkSingleLedsGoingClockwise(100, 100, 1, 5); 
-  if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
+  // //first display
+  // fadeBlinkSingleLedsGoingClockwise(100, 100, 1, 5); 
+  // if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
 
-  //second display
-  fadeShowAllTheColors(500, 1000, 1, 2);
-  if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
+  // //second display
+  // fadeShowAllTheColors(500, 1000, 1, 2);
+  // if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
   
-  // third display
-  crossFadeRightAndLeft(100, 100, 5, 2);
-  if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
+  // // third display
+  // crossFadeRightAndLeft(100, 100, 5, 2);
+  // if (fade.delayAndCheckForExit(intermissionDelay) == true) return;   // check knob during intermission
   
-  if (fade.delayAndCheckForExit(postShowDelay) == true) return;   // check knob during intermission
+  // if (fade.delayAndCheckForExit(postShowDelay) == true) return;   // check knob during intermission
   
-  Serial.print(" Background Show finished.  Run time in milliseconds: ");
-  Serial.println(millis() - startTime);
+  // Serial.print(" Background Show finished.  Run time in milliseconds: ");
+  // Serial.println(millis() - startTime);
+
+
+
+
+
+
+
+
+
+
+  // slinky();
+
+}
+
+void slinky()
+{
+  byte bottom[] = {2, 3, 4, 5, 6};
+  byte top[] = {7, 8, 9, 10, 11};
+
+  byte twoLeds[2];
+
+  for(int count = 0; count < 5; count++)
+  {
+      for(int i = 0; i < 4; i++)
+      {
+        twoLeds[0] = bottom[i];
+        twoLeds[1] = top[i];
+        fade.up(4, twoLeds, 2);
+        fDelay(200);
+        fade.down(4, twoLeds, 2);
+      }
+
+      for(int i = 4; i > 0; i--)
+      {
+        twoLeds[0] = bottom[i];
+        twoLeds[1] = top[i];
+        fade.up(4, twoLeds, 2);
+        fDelay(200);
+        fade.down(4, twoLeds, 2);
+      }
+  }
+
+  
 }
 
 
